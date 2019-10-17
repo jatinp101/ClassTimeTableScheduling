@@ -39,7 +39,27 @@ void MonteCarlo (map ClassTable, vector Schedule, vector Schedule1, int cost) {
 		}
 
 		if (schedule2[time_tem][index_teacher] > 1) { // there is a clash in time&teach
-			
+			if (schedule2[row_tem][index_teacher] == 0)
+				dif_cost++;	
+		} else {
+			if (schedule2[row_tem][index_teacher] > 0) 
+				diff_cost--;
 		}
+
+		if (dif_cost > 0) {
+			schedule[time_tem][loc_tem]--;
+			schedule[row_tem][col_tem]++;
+			schedule[time_tem][index_teaccher]--;
+			schedule2[row_tem][index_teacher]++;
+			cost = cost - dif_cost;
+			(row_tem,col_tem) -> classTable[crn_course];
+			unincrease = 0;
+		} else {
+			unincrease++;
+		}
+		if (unincrease == max_unincrease) break;
+		if (cost == 0) break;
+		iteration++;
 	}
+	return classTable, schedule, schedule2, cost;
 }
