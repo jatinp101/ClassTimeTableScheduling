@@ -13,7 +13,7 @@
 using namespace std;
 
 // the parameter should be pass value by address
-int first(map<int, map<int,int> > classTable, int schedule[][10], int schedule2[][10], int course_inf[], int row_max, int col_max){
+int first(map<int, map<int,int> > *classTable, vector< vector<int> > schedule, vector< vector<int> >schedule2, vector<int> course_inf[], int row_max, int col_max){
     int cost = 0;//The number of class clash
     int i = 0; //The number of current iteration
     
