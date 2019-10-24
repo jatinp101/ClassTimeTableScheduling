@@ -11,26 +11,35 @@
 #include <vector>
 
 using namespace std;
-void MonteCarlo (map*, vector*, vector*, int*);
+//void MonteCarlo (map*, vector*, vector*, int*);
 
-void MonteCarlo (map ClassTable, vector Schedule, vector Schedule1, int cost) {
+int MonteCarlo (map<int, map<int, int> >& classTable, vector<vector<int> >& schedule, vector<vector<int> >& schedule2, vector<int> crnTeacher, int cost) {
 	int unincrease, iteration, max_iteration, dif_cost;
 	void srand(int seed);
 	iteration = 0;
 	max_iteration = 100;
 	unincrease = 0;
 	dif_cost = 0; // move if > 0
+    int max_unincrease = 100;
 
 
 	while (iteration < max_iteration) {
 		int crn_course = (rand() % 10) + 1;
-		int index_teacher; // not too sure how to get it :/
-		int loc_tem, time_tem, row_tem, col_tem;
+        //get the index number of teacher from the container
+		int index_teacher = crnTeacher[crn_course]; // not too sure how to get it :/
+        
+        int loc_tem, time_tem, row_tem, col_tem;
 		// loc_tem, time_tem not too sure how to get those values either
-		row_tem = (rand() % 10) + 1; // Not sure if these are the same bounds
-		col_tem = (rand() % 10) + 1; // ""
+        
+        //get the loc_tem and time_tem from the map, it is inside of ClassTable
+        map<int,int> temp = classTable[crn_course];
+         time_tem = temp.begin()->first;
+         loc_tem = temp.begin()->second;
+        //the bounds of two variable depend on our total courses and classroom
+		row_tem = (rand() % 10) + 1; //time
+		col_tem = (rand() % 10) + 1; //classroom
 		
-		if (schedule[time_tem] [col_tem] >  1) { // clash 
+		if (schedule[time_tem][col_tem] >  1) { // clash
 			if (schedule [row_tem][col_tem] == 0)
 				dif_cost++;
 		} else { //no clash
@@ -43,16 +52,20 @@ void MonteCarlo (map ClassTable, vector Schedule, vector Schedule1, int cost) {
 				dif_cost++;	
 		} else {
 			if (schedule2[row_tem][index_teacher] > 0) 
-				diff_cost--;
+				dif_cost--;
 		}
 
 		if (dif_cost > 0) {
 			schedule[time_tem][loc_tem]--;
 			schedule[row_tem][col_tem]++;
-			schedule[time_tem][index_teaccher]--;
+			schedule[time_tem][index_teacher]--;
 			schedule2[row_tem][index_teacher]++;
 			cost = cost - dif_cost;
-			(row_tem,col_tem) -> classTable[crn_course];
+			//(row_tem,col_tem) -> classTable[crn_course];
+            map<int, int> temp;
+            temp[row_tem] = col_tem;
+            classTable.erase(crn_course);
+            classTable[crn_course] = temp;
 			unincrease = 0;
 		} else {
 			unincrease++;
@@ -61,5 +74,5 @@ void MonteCarlo (map ClassTable, vector Schedule, vector Schedule1, int cost) {
 		if (cost == 0) break;
 		iteration++;
 	}
-	return classTable, schedule, schedule2, cost;
+	return cost;
 }
