@@ -37,7 +37,7 @@ int MonteCarlo (map<int, map<int, int> >& classTable, vector<vector<int> >& sche
          loc_tem = temp.begin()->second;
         //the bounds of two variable depend on our total courses and classroom
 		row_tem = (rand() % 10) + 1; //time
-		col_tem = (rand() % 10) + 1; //classroom
+		col_tem = (rand() % 10) + 1; //location
 		
 		if (schedule[time_tem][col_tem] >  1) { // clash
 			if (schedule [row_tem][col_tem] == 0)
@@ -58,7 +58,7 @@ int MonteCarlo (map<int, map<int, int> >& classTable, vector<vector<int> >& sche
 		if (dif_cost > 0) {
 			schedule[time_tem][loc_tem]--;
 			schedule[row_tem][col_tem]++;
-			schedule[time_tem][index_teacher]--;
+			schedule2[time_tem][index_teacher]--;
 			schedule2[row_tem][index_teacher]++;
 			cost = cost - dif_cost;
 			//(row_tem,col_tem) -> classTable[crn_course];

@@ -22,8 +22,8 @@ int first(map<int, map<int,int> >& classTable, vector<vector<int> >& schedule, v
         int crn_course = i;
         int index_teacher = course_inf[crn_course];// each crn_course have their own teacher numbers
         
-        int row_tem = rand() % row_max;
-        int col_tem = rand() % col_max;
+        int row_tem = rand() % row_max;//time
+        int col_tem = rand() % col_max;//location
         map<int,int> time_loc;
         
         time_loc.insert(pair<int, int>(row_tem, col_tem));
