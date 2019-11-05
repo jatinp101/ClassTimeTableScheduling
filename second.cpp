@@ -28,8 +28,10 @@ int MonteCarlo (map<int, map<int, int> >& classTable, vector<vector<int> >& sche
         	//get the index number of teacher from the container
 		int index_teacher = crnTeacher[crn_course]; 
         
-        	int loc_tem, time_tem, row_tem, col_tem;
-		// still not too sure how to get those values either
+        	int loc_tem = (rand() % classTable.size()) + 1;
+		int time_tem = (rand() % classTable.size()) + 1;
+		int row_tem = (rand() % classTable.size()) + 1;
+		int col_tem = (rand() % classTable.size()) + 1;
         
         //get the loc_tem and time_tem from the map, it is inside of ClassTable
         map<int,int> temp = classTable[crn_course];
