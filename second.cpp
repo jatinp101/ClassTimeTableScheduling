@@ -12,24 +12,24 @@
 
 using namespace std;
 //void MonteCarlo (map*, vector*, vector*, int*);
-
+// Why did we switch the MonteCarlo method from void to int?
 int MonteCarlo (map<int, map<int, int> >& classTable, vector<vector<int> >& schedule, vector<vector<int> >& schedule2, vector<int> crnTeacher, int cost) {
 	int unincrease, iteration, max_iteration, dif_cost;
-	void srand(int seed);
+	srand((unsigned int)time(NULL));
 	iteration = 0;
 	max_iteration = 100;
 	unincrease = 0;
 	dif_cost = 0; // move if > 0
-    int max_unincrease = 100;
+        int max_unincrease = 100;
 
 
 	while (iteration < max_iteration) {
 		int crn_course = (rand() % 10) + 1;
-        //get the index number of teacher from the container
-		int index_teacher = crnTeacher[crn_course]; // not too sure how to get it :/
+        	//get the index number of teacher from the container
+		int index_teacher = crnTeacher[crn_course]; 
         
-        int loc_tem, time_tem, row_tem, col_tem;
-		// loc_tem, time_tem not too sure how to get those values either
+        	int loc_tem, time_tem, row_tem, col_tem;
+		// still not too sure how to get those values either
         
         //get the loc_tem and time_tem from the map, it is inside of ClassTable
         map<int,int> temp = classTable[crn_course];
