@@ -13,10 +13,10 @@ using namespace std;
 
 int main() {
 	// set up these premise variable
-    int total_course = 10;
-    int total_time = 10; // as the row_max
-    int total_classroom = 10;// as the col_max
-    int total_teacher = 10;
+    int total_course = 4;
+    int total_time = 3; // as the row_max
+    int total_classroom = 3;// as the col_max
+    int total_teacher = 3;
     
     //total cost that is class clash
     int cost = 0;
@@ -29,6 +29,40 @@ int main() {
     //to record the courses and teachers
     vector<int> course_teacher;
     
+    //input data to each container for testing
+    //let do three classes first.
+    //initialize the two containers of schedule, fill up 0 with three rows and cols
+    vector<int> temp(3,0);
+    for(int i = 0; i<3;++i){
+        schedule.push_back(temp);
+        schedule2.push_back(temp);
+    }
     
+    //initialize the course_teacher, the value is the number of a teacher.
+    for(int i = 0; i<3; ++i){
+    course_teacher.push_back(i);
+    }
+    course_teacher.push_back(1);//the teacher 1 will have two courses, which is class 1 and 3.(each number means index)
+    
+    cout<<"Start: randomly generated "<<endl;
+    cost = first(classTable, schedule, schedule2, course_teacher, total_time, total_classroom);
+    cout<<"total cost is: "<<cost<<endl;//debug the cost
+    cout<<"check the map: "<<endl;
+    for(int i = 0; i<4; ++i){
+        cout<<classTable[i].begin()->first<<classTable[i].begin()->second<<endl;
+        
+    }
+    //part 2
+    cout<<"Testing part 2(Monte carlo): "<<endl;
+    cost = MonteCarlo(classTable, schedule, schedule2, course_teacher, cost);
+    cout<<"cost after montecarlo is: "<<cost<<endl;
+    for(int i = 0; i<4; ++i){
+        cout<<classTable[i].begin()->first<<classTable[i].begin()->second<<endl;
+        
+    }
+    //part 3
+    cout<<"Testing part 3(annealing simulated): "<<endl;
+    cost = third(classTable, schedule, schedule2, course_teacher, cost);
+    cout<<"cost after annealing simulated is: "<<cost<<endl;
 	return 0;
 }
